@@ -1,16 +1,34 @@
 package se.lexicon.myjpaassignment.entity;
 
+import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+@Entity
+@Table(name = "recipe")
 public class Recipe {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "recipe_id")
     private int id;
     private String recipeName;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST})
     private List<RecipeIngredient> recipeIngredients;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = RecipeInstruction.class)
+    @JoinColumn(name = "instruction_id")
     private RecipeInstruction instruction;
+
+    @ManyToMany(cascade = {CascadeType.REFRESH, CascadeType.DETACH})
+    @JoinTable(name = "recipe_recipe_category",
+            joinColumns = @JoinColumn(name = "recipe_id"), inverseJoinColumns = {@JoinColumn(name = "recipe_category_id")})
     private Set<RecipeCategory> categories;
+
+    public Recipe() {
+    }
 
     public Recipe(int id, String recipeName, List<RecipeIngredient> recipeIngredients, RecipeInstruction instruction, Set<RecipeCategory> categories) {
         this.id = id;

@@ -1,15 +1,37 @@
 package se.lexicon.myjpaassignment.entity;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "recipe_ingredient")
 public class RecipeIngredient {
-    private String id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "recipe_ingredient_id")
+    private int id;
+
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "ingredient_id")
     private Ingredient ingredient;
+
     private double amount;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "measurement")
     private Measurement measurement;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, targetEntity = Recipe.class)
+    @JoinColumn(name = "recipe_id")
     private Recipe recipe;
 
-    public RecipeIngredient(String id, Ingredient ingredient, double amount, Measurement measurement, Recipe recipe) {
+
+    public RecipeIngredient() {
+    }
+
+    public RecipeIngredient(int id, Ingredient ingredient, double amount, Measurement measurement, Recipe recipe) {
         this.id = id;
         this.ingredient = ingredient;
         this.amount = amount;
@@ -24,11 +46,11 @@ public class RecipeIngredient {
         this.recipe = recipe;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -69,7 +91,7 @@ public class RecipeIngredient {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RecipeIngredient that = (RecipeIngredient) o;
-        return Double.compare(that.amount, amount) == 0 && Objects.equals(id, that.id);
+        return id == that.id && Double.compare(that.amount, amount) == 0;
     }
 
     @Override
@@ -80,7 +102,7 @@ public class RecipeIngredient {
     @Override
     public String toString() {
         return "RecipeIngredient{" +
-                "id='" + id + '\'' +
+                "id=" + id +
                 ", ingredient=" + ingredient +
                 ", amount=" + amount +
                 ", measurement=" + measurement +

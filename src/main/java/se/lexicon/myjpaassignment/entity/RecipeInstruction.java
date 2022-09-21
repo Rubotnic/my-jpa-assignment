@@ -1,12 +1,24 @@
 package se.lexicon.myjpaassignment.entity;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "recipe_instruction")
 public class RecipeInstruction {
-    private String id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "instruction_id")
+    private int id;
     private String instructions;
 
-    public RecipeInstruction(String id, String instructions) {
+
+
+    public RecipeInstruction() {
+    }
+
+    public RecipeInstruction(int id, String instructions) {
         this.id = id;
         this.instructions = instructions;
     }
@@ -15,11 +27,12 @@ public class RecipeInstruction {
         this.instructions = instructions;
     }
 
-    public String getId() {
+
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -30,6 +43,7 @@ public class RecipeInstruction {
     public void setInstructions(String instructions) {
         this.instructions = instructions;
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -52,4 +66,3 @@ public class RecipeInstruction {
                 '}';
     }
 }
-

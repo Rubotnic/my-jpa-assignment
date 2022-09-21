@@ -1,13 +1,24 @@
 package se.lexicon.myjpaassignment.entity;
 
+import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
+import java.util.TreeSet;
 
+@Entity
+@Table(name = "recipe_category")
 public class RecipeCategory {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "recipe_category_id")
     private int id;
     private String category;
+    @ManyToMany(mappedBy = "categories",cascade = {CascadeType.REFRESH, CascadeType.DETACH})
     private Set<Recipe> recipe;
+
+    public RecipeCategory() {
+    }
 
     public RecipeCategory(int id, String category, Set<Recipe> recipe) {
         this.id = id;
