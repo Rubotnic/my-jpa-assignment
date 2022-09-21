@@ -12,7 +12,6 @@ public class RecipeIngredient {
     @Column(name = "recipe_ingredient_id")
     private int id;
 
-
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "ingredient_id")
     private Ingredient ingredient;
