@@ -43,6 +43,10 @@ public class RecipeDaoImpl implements RecipeDao{
     @Override
     public void delete(int id) {
         entityManager.remove(findById(id));
-
     }
+    // --- Extra ---
+
+
+
+
 }

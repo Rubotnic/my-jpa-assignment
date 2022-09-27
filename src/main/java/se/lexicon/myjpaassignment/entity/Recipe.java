@@ -1,6 +1,7 @@
 package se.lexicon.myjpaassignment.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -25,7 +26,7 @@ public class Recipe {
     @ManyToMany(cascade = {CascadeType.REFRESH, CascadeType.DETACH})
     @JoinTable(name = "recipe_recipe_category",
             joinColumns = @JoinColumn(name = "recipe_id"), inverseJoinColumns = {@JoinColumn(name = "recipe_category_id")})
-    private Set<RecipeCategory> categories;
+    private Set<RecipeCategory> categories = new HashSet<>();
 
     public Recipe() {
     }
@@ -44,6 +45,8 @@ public class Recipe {
         this.instruction = instruction;
         this.categories = categories;
     }
+
+
 
     public int getId() {
         return id;

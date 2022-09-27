@@ -1,9 +1,10 @@
 package se.lexicon.myjpaassignment.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import java.util.TreeSet;
+
 
 @Entity
 @Table(name = "recipe_category")
@@ -15,7 +16,7 @@ public class RecipeCategory {
     private int id;
     private String category;
     @ManyToMany(mappedBy = "categories",cascade = {CascadeType.REFRESH, CascadeType.DETACH})
-    private Set<Recipe> recipe;
+    private Set<Recipe> recipe = new HashSet<>();
 
     public RecipeCategory() {
     }

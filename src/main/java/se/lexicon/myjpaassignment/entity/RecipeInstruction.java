@@ -14,7 +14,6 @@ public class RecipeInstruction {
     private String instructions;
 
 
-
     public RecipeInstruction() {
     }
 
